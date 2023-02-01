@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->comment('');
-            $table->integer('id', true);
-            $table->integer('clubs_id')->index('fk_teams_clubs1_idx');
+            $table->id();
+            $table->timestamps();
+            $table->unsignedBigInteger('club_id');
             $table->string('category', 45);
             $table->string('name', 45)->nullable();
-
-            $table->primary(['id', 'clubs_id']);
         });
     }
 

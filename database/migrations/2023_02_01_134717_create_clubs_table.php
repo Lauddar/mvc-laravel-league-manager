@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('clubs', function (Blueprint $table) {
-            $table->comment('');
-            $table->integer('id', true);
-            $table->string('name', 45)->nullable();
-            $table->string('location', 45)->nullable();
+            $table->id();
+            $table->timestamps();
+            $table->string('name', 45);
+            $table->string('location', 45);
         });
     }
 

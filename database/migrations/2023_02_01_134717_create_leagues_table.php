@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('leagues', function (Blueprint $table) {
-            $table->comment('');
-            $table->integer('id')->primary();
+            $table->id();
+            $table->timestamps();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->enum('state', ['TO START', 'IN PROGRESS', 'FINISHED'])->nullable();

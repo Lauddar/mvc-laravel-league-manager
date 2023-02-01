@@ -14,9 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('league_has_teams', function (Blueprint $table) {
-            $table->comment('');
-            $table->integer('league_id')->index('fk_leagues_has_teams_leagues_idx');
-            $table->integer('team_id')->index('fk_leagues_has_teams_teams1_idx');
+            $table->unsignedBigInteger('league_id');
+            $table->unsignedBigInteger('team_id');
             $table->string('punctuation', 45)->nullable();
             $table->string('position', 45)->nullable();
             $table->string('victories', 45)->nullable();

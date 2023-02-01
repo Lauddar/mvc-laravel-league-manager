@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('league_has_teams', function (Blueprint $table) {
-            $table->foreign(['league_id'], 'fk_leagues_has_teams_leagues')->references(['id'])->on('leagues')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign(['team_id'], 'fk_leagues_has_teams_teams1')->references(['id'])->on('teams')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('league_id')->references('id')->on('leagues')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('team_id')->references('id')->on('teams')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
