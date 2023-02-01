@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Club;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,5 +22,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Club::factory(50)->create();
     }
 }
