@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\FootballMatchController;
+use App\Http\Controllers\ClubController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::resource('leagues', LeagueController::class);
+
+Route::resource('leagues/footballMatches', FootballMatchController::class);
+
+Route::resource('clubs', ClubController::class);
+
+Route::resource('clubs/teams', TeamController::class);
