@@ -5,7 +5,7 @@
 @section('content')
 <h1>Añade un equipo nuevo</h1>
 
-<form action="{{route('teams.store')}}" method="POST">
+<form action="{{route('clubs.teams.store', $club)}}" method="POST">
 
     @csrf
 
@@ -23,12 +23,12 @@
 
     <br>
     <label>
-        Localidad:
+        Categoria:
         <br>
-        <input type="text" name="location" value="{{old('location')}}">
+        <input type="text" name="category" value="{{old('category')}}">
     </label>
 
-    @error('location')
+    @error('category')
     <br>
     <small>"{{$message}}"</small>
     <br>
