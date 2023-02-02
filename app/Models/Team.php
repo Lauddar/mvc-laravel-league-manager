@@ -10,4 +10,8 @@ class Team extends Model
     use HasFactory;
     
     protected $guarded = [];
+
+    public function club(){
+        return $this->belongsTo('App\Models\Club');
+    }
 }
