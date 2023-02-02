@@ -7,7 +7,13 @@
 <p>{{$club->location}}</p>
 <a href="{{route('clubs.edit', $club)}}">Editar este club</a> 
 <br>
-<form action="{{route('clubs.destroy',$club)}}" method="POST">
+<a href="{{route('clubs.teams.create', $club)}}">Añadir equipo</a>
+<ul>
+    @foreach ($club->teams as $team)
+    <li><a href="{{route('teams.show', $team->id)}}">{{$team->name}}</a></li>
+    @endforeach
+</ul>
+<form action="{{route('clubs.destroy', $club)}}" method="POST">
 @csrf
 @method('delete')
 <button type="submit">Eliminar</button>

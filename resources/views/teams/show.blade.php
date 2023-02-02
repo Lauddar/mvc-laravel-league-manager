@@ -12,5 +12,5 @@
 @method('delete')
 <button type="submit">Eliminar</button>
 </form>
-<a href="{{route('teams.index')}}">Volver a equipos</a> 
+<a href="{{route('clubs.show', $team->club->id)}}">Volver a equipos</a> 
 @endsection

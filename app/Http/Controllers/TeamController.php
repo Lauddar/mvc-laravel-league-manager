@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\Club;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -14,19 +15,19 @@ class TeamController extends Controller
         return view('teams.index', compact('teams'));
     }
 
-    public function create()
+    public function create(Club $club)
     {
-        return view('teams.create');
+        return view('clubs.teams.create', compact('club'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Club $club)
     {
         $request->validate([
             'name' => 'required',
-            'location' => 'required'
+            'category' => 'required'
         ]);
 
-        $team = Team::create($request->all());
+        $team = $club->teams()->create($request->all());
 
         return redirect()->route('teams.show', $team);
     }

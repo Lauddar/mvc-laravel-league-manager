@@ -27,4 +27,4 @@ Route::resource('leagues/footballMatches', FootballMatchController::class);
 
 Route::resource('clubs', ClubController::class);
 
-Route::resource('clubs/teams', TeamController::class);
+Route::resource('clubs.teams', TeamController::class)->shallow();

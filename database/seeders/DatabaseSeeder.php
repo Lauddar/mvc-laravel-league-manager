@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Club;
+use App\Models\Team;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,5 +25,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Club::factory(50)->create();
+
+        Team::factory(4)->create();
     }
 }
