@@ -22,11 +22,16 @@
     @enderror
 
     <br>
-    <label>
-        Categoria:
-        <br>
-        <input type="text" name="category" value="{{old('category')}}">
-    </label>
+    <label for="category">Selecciona una categoria:</label>
+    <br>
+    <select name="category" id="category">
+        <option value="Benjamín">Benjamín</option>
+        <option value="Alevín">Alevín</option>
+        <option value="Infantil">Infantil</option>
+        <option value="Cadete">Cadete</option>
+        <option value="Juvenil">Juvenil</option>
+    </select>
+
 
     @error('category')
     <br>

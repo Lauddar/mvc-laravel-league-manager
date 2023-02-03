@@ -22,7 +22,7 @@ class TeamFactory extends Factory
         return [
             'club_id'=>50,
             'name' => $this->faker->sentence(3,false),
-            'category' => $this->faker->randomElement(['Junior', 'Infantil'])
+            'category' => $this->faker->randomElement(['Juvenil', 'Infantil'])
         ];
     }
 }
