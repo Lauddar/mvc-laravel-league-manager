@@ -14,4 +14,9 @@ class Team extends Model
     public function club(){
         return $this->belongsTo('App\Models\Club');
     }
+
+    // Many to many relationship
+    public function leagues(){
+        return $this->belongsToMany('App\Models\League')->withPivot('punctuation', 'position', 'victories', 'defeats', 'ties', 'scored_goals', 'conceded_goals');
+    }
 }

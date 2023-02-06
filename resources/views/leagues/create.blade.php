@@ -23,9 +23,9 @@
 
     <br>
     <label>
-        Localidad:
+        Fecha de inicio:
         <br>
-        <input type="text" name="location" value="{{old('location')}}">
+        <input type="date" name="start_date" value="{{old('start_date')}}">
     </label>
 
     @error('location')
@@ -35,6 +35,20 @@
     @enderror
 
     <br>
+    <label>
+        Fecha de fin:
+        <br>
+        <input type="date" name="end_date" value="{{old('end_date')}}">
+    </label>
+
+    @error('end_datev')
+    <br>
+    <small>"{{$message}}"</small>
+    <br>
+    @enderror
+
+    <br>
     <button type="submit">Crear</button>
+    <a href="{{route('leagues.index')}}">Cancelar</a> 
 </form>
 @endsection

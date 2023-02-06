@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\Club;
+use App\Models\League;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function index()
+    public function index(League $league)
     {
         $teams = Team::orderBy('id', 'desc')->paginate();
 
-        return view('teams.index', compact('teams'));
+        return view('teams.index', compact('teams', 'league'));
     }
 
     public function create(Club $club)
