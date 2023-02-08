@@ -12,7 +12,7 @@
 <a href="{{route('leagues.listTeams', $league)}}">Añadir equipos</a> 
 <a href="{{route('leagues.edit', $league)}}">Modificar esta liga</a> 
 <br>
-<a href="{{route('footballMatches.index', $league)}}">Ver partidos</a>
+<a href="{{route('leagues.footballmatches.index', $league)}}">Ver partidos</a>
 <form action="{{route('leagues.destroy',$league)}}" method="POST">
 @csrf
 @method('delete')

@@ -19,4 +19,8 @@ class Team extends Model
     public function leagues(){
         return $this->belongsToMany('App\Models\League')->withPivot('punctuation', 'position', 'victories', 'defeats', 'ties', 'scored_goals', 'conceded_goals');
     }
+
+    public function footballMatches(){
+        return $this->hasMany('App\Models\FootballMatch', 'id', 'local_team');
+    }
 }

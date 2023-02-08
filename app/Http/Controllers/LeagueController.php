@@ -53,7 +53,6 @@ class LeagueController extends Controller
             'end_date' => 'required|date'
         ]);
 
-
         $league->update($request->all());
 
         return redirect()->route('leagues.show', $league);
@@ -94,7 +93,7 @@ class LeagueController extends Controller
         foreach ($request->teamsList as $key => $team) {
             $league->teams()->attach($team, [
                 'punctuation' => 0,
-                'position' => '-',
+                'position' => 0,
                 'victories' => 0,
                 'defeats' => 0,
                 'ties' => 0,
@@ -108,29 +107,17 @@ class LeagueController extends Controller
 
     public function removeTeams(Request $request, League $league)
     {
-
         foreach ($request->teamsList as $key => $team) {
             $league->teams()->detach($team);
         }
         return redirect()->route('leagues.listTeams', $league);
     }
 
-    function calulateTeamPosition(League $league)
-    {
-        $teams = $league->teams()->orderBy('punctuation', 'desc')->paginate();
-        $i = 0;
-        foreach ($teams as $team) {
-            $i++;
-            $league->teams()->updateExistingPivot($team, [
-                'position' => $i
-            ]);
-        }
-    }
-
     function classification(League $league)
     {
-        $teams = $league->teams()->orderByPivot('position', 'asc')->get();
+        $teams = $league->getOrderByPosition();
 
         return view('leagues.classification', compact('teams', 'league'));
     }
+
 }
