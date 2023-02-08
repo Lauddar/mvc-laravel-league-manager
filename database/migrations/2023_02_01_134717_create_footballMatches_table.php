@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('matches', function (Blueprint $table) {
+        Schema::create('football_matches', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('league_id');
             $table->unsignedBigInteger('local_team');
             $table->unsignedBigInteger('visiting_team');
-            $table->unsignedInteger('local_goals');
-            $table->unsignedInteger('visiting_goals');
+            $table->unsignedInteger('local_goals')->nullable();
+            $table->unsignedInteger('visiting_goals')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->string('location', 45)->nullable();
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matches');
+        Schema::dropIfExists('football_matches');
     }
 };

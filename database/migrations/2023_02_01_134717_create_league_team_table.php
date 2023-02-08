@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('league_team', function (Blueprint $table) {
             $table->unsignedBigInteger('league_id');
             $table->unsignedBigInteger('team_id');
-            $table->string('punctuation', 45)->nullable();
-            $table->string('position', 45)->nullable();
-            $table->string('victories', 45)->nullable();
-            $table->string('defeats', 45)->nullable();
-            $table->string('ties', 45)->nullable();
-            $table->string('scored_goals', 45)->nullable();
-            $table->string('conceded_goals', 45)->nullable();
+            $table->integer('punctuation')->nullable()->unsigned();
+            $table->integer('position')->nullable()->unsigned();
+            $table->integer('victories')->nullable()->unsigned();
+            $table->integer('defeats')->nullable()->unsigned();
+            $table->integer('ties')->nullable()->unsigned();
+            $table->integer('scored_goals')->nullable()->unsigned();
+            $table->integer('conceded_goals')->nullable()->unsigned();
 
-            $table->primary(['league_id', 'team_id']);
+            //$table->primary(['league_id', 'team_id']);
         });
     }
 
