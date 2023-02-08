@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\Club;
+use App\Models\League;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function index()
+    public function index(League $league)
     {
         $teams = Team::orderBy('id', 'desc')->paginate();
 
-        return view('teams.index', compact('teams'));
+        return view('teams.index', compact('teams', 'league'));
     }
 
     public function create(Club $club)
@@ -23,8 +24,7 @@ class TeamController extends Controller
     public function store(Request $request, Club $club)
     {
         $request->validate([
-            'name' => 'required',
-            'category' => 'required'
+            'name' => 'required|max:50'
         ]);
 
         $team = $club->teams()->create($request->all());
@@ -45,8 +45,7 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $request->validate([
-            'name' => 'required|max:50',
-            'location' => 'required|max:50'
+            'name' => 'required|max:50'
         ]);
 
 
@@ -56,8 +55,9 @@ class TeamController extends Controller
     }
 
     public function destroy(Team $team){
+        $club = $team->club;
         $team->delete();
 
-        return redirect()->route('teams.index');
+        return redirect()->route('clubs.show', $club);
     }
 }

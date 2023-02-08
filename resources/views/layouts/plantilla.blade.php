@@ -12,6 +12,7 @@
   <!-- header -->
   <!-- nav -->
   
+  <h2>@yield ('section')</h2>
   @yield ('content')
 
   <!-- footer -->

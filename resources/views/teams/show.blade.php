@@ -3,8 +3,9 @@
 @section('title',$team->name)
 
 @section('content')
-<h1>Club {{$team->name}}</h1>
-<p>{{$team->location}}</p>
+<h1>{{$team->name}}</h1>
+<h3><a href="{{route('clubs.show', $team->club->id)}}">{{$team->club->name}}</a></h3>
+<p>{{$team->category}}</p>
 <a href="{{route('teams.edit', $team)}}">Editar este equipo</a> 
 <br>
 <form action="{{route('teams.destroy',$team)}}" method="POST">

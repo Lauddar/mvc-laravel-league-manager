@@ -1,39 +1,42 @@
 @extends('layouts.plantilla')
 
-@section('title','Nuevo equipo')
+@section('title','Nuevo partido - ' . $league->name)
+
+@section('section', 'PARTIDOS')
 
 @section('content')
-<h1>Añade un equipo nuevo</h1>
+<h1>Crear un partido nuevo</h1>
 
-<form action="{{route('teams.store')}}" method="POST">
+<form action="{{route('leagues.footballmatches.store', $league)}}" method="POST">
 
     @csrf
 
-    <label>
-        Nombre:
-        <br>
-        <input type="text" name="name" value="{{old('name')}}">
-    </label>
-
-    @error('name')
+    <label for="category">Equipo local:</label>
     <br>
-    <small>"{{$message}}"</small>
+    <select name="local_team" id="local_team">
+        @foreach($league->teams as $team)
+        <option value="{{$team->id}}" {{ $team->id == 'old($team->id)' ? 'selected' : ''}}>{{$team->name}}</option>
+        @endforeach
+    </select>
     <br>
-    @enderror
-
+    <label for="category">Equipo visitante:</label>
     <br>
-    <label>
-        Localidad:
-        <br>
-        <input type="text" name="location" value="{{old('location')}}">
-    </label>
-
-    @error('location')
+    <select name="visiting_team" id="visiting_team">
+         @foreach($league->teams as $team)
+        <option value="{{$team->id}}" {{ $team->id == 'old($team->id)' ? 'selected' : ''}}>{{$team->name}}</option>
+        @endforeach
+    </select>
+    @error('visiting_team')
     <br>
-    <small>"{{$message}}"</small>
+    <small>"This fields must be different."</small>
     <br>
     @enderror
-
+    <br>
+    <label>
+        Fecha del partido:
+        <br>
+        <input type="date" name="start_date" value="{{old('start_date')}}">
+    </label>
     <br>
     <button type="submit">Crear</button>
 </form>

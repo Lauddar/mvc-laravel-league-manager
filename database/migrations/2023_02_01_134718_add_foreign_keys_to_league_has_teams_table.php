@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('league_has_teams', function (Blueprint $table) {
+        Schema::table('league_team', function (Blueprint $table) {
             $table->foreign('league_id')->references('id')->on('leagues')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('team_id')->references('id')->on('teams')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
