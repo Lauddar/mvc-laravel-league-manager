@@ -8,7 +8,14 @@
 <h1>{{$league->name}}</h1>
 <p>Empieza: {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $league->start_date)->format('d-m-Y')}}</p>
 <p>Acaba: {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $league->end_date)->format('d-m-Y')}}</p>
-<p>Estado: {{$league->state}}</p>
+@if($league->state == 'TO START')
+<p>POR EMPEZAR</p>
+@elseif($league->state == 'IN PROGRESS')
+<p>EN CURSO</p>
+@else
+<p>TERMINADA</p>
+@endif
+
 <a href="{{route('leagues.listTeams', $league)}}">Añadir equipos</a> 
 <a href="{{route('leagues.edit', $league)}}">Modificar esta liga</a> 
 <br>

@@ -50,6 +50,15 @@
     @enderror
 
     <br>
+
+    <label for="">Modifica el estado:</label>
+    <br>
+    <select name="state" id="state">
+        <option value="TO START" {{ $league->state == 'TO START' ? 'selected' : ''}}>SIN INICIAR</option>
+        <option value="IN PROGRESS" {{ $league->state == 'IN PROGRESS' ? 'selected' : ''}}>EN CURSO</option>
+        <option value="FINISHED" {{ $league->state == 'FINISHED' ? 'selected' : ''}}>TERMINADA</option>
+    </select>
+    <br>
     <button type="submit">Guardar</button>
     <a href="{{route('leagues.index')}}">Cancelar</a> 
 </form>
