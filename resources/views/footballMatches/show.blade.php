@@ -2,6 +2,8 @@
 
 @section('title',$team->name)
 
+@section('pretitle', 'PARTIDOS ' . $)
+
 @section('content')
 <h1>Club {{$team->name}}</h1>
 <p>{{$team->location}}</p>
