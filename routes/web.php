@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect()->route('leagues.index');
 });
 
 Route::resource('leagues', LeagueController::class);
