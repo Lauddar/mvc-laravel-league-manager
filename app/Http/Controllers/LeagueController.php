@@ -26,11 +26,10 @@ class LeagueController extends Controller
         $request->validate([
             'name' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'end_date' => 'required|date|after_or_equal:start_date'
         ]);
 
         $league = League::create($request->all());
-        $league->update(['state' => 'TO START']);
 
         return redirect()->route('leagues.show', $league);
     }
@@ -50,7 +49,7 @@ class LeagueController extends Controller
         $request->validate([
             'name' => 'required|max:50',
             'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'end_date' => 'required|date|after_or_equal:start_date'
         ]);
 
         $league->update($request->all());

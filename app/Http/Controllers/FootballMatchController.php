@@ -25,7 +25,7 @@ class FootballMatchController extends Controller
         $request->validate([
             'local_team' => 'required',
             'visiting_team' => 'different:local_team',
-            'start_date' => 'required'
+            'start_date' => 'required',
         ]);
 
         $league->footballMatches()->create([
@@ -52,6 +52,12 @@ class FootballMatchController extends Controller
 
     public function update(Request $request, FootballMatch $footballmatch)
     {
+        $request->validate([
+            'start_date' => 'required',
+            'local_goals' => 'gte:0',
+            'visiting_goals' => 'gte:0',
+        ]);
+
         $footballmatch->update($request->all());
 
         $footballmatch->league->updateClassification();
