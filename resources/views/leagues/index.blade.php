@@ -1,24 +1,32 @@
-@extends('layouts.plantilla')
+@extends('layouts.content')
 
 @section('title','Ligas')
 
-@section('pretitle', 'LIGAS')
+@section('primary-text','LIGAS')
 
 @section('content')
-<div class="mt-5 flex space-x-20 font-rubik">
-    <div><a href="{{route('leagues.create')}}" class="w-28 h-11 m-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-neon-orange px-4 py-2 text-white shadow-sm hover:bg-dark-orange">Crear liga</a></div>
-    <div class="m-8 grid grid-cols-2 gap-16">
-        @foreach ($leagues as $league)
-        <div class="bg-neon-lime w-96 h-28 static rounded-lg ">
-            <a href="{{route('leagues.show', $league->id)}}">
-                <div class="bg-white w-96 h-28 hover:-m-2 absolute rounded-lg shadow-lg transition-all duration-150 ease-out hover:ease-in ">
-                    <h1 class="m-4 text-2xl truncate font-bold">{{$league->name}}</h1>
-                    <hr class="mx-4 rounded-2xl border-t-2">
-                    <div class="m-4 text-sm text-gray-500">@include('leagues.partials.leaguestate')</div>
-                </div>
-            </a>
+<div class="flex flex-col">
+    @auth
+    <a href="{{route('leagues.create')}}">
+        @else <a href="{{route('register')}}">
+            @endauth<x-orange-button>
+                {{'Nueva liga'}}
+            </x-orange-button></a>
+        <h1 class="mt-5 p-4 text-xl font-bold">TODAS LAS LIGAS</h1>
+        <div class="flex flex-col space-y-5">
+            <div class="mx-4 grid grid-cols-3 gap-y-12 gap-x-6">
+                @if(count($leagues) == 0) <p class="text-gray-400">No hay ligas.</p>
+                @endif
+                @foreach ($leagues as $league)
+                <a href="{{route('leagues.show', $league->id)}}">
+                    <div class="P-4 bg-white h-28 rounded-lg shadow-md hover:shadow-lg">
+                        <h1 class="m-4 text-2xl truncate font-bold">{{$league->name}}</h1>
+                        <hr class="mx-4 rounded-2xl border-t-2">
+                        <div class="m-4 text-sm text-gray-500">@include('leagues.partials.leaguestate')</div>
+                    </div>
+                </a>
+                @endforeach
+            </div>
         </div>
-        @endforeach
-    </div>
 </div>
 @endsection
