@@ -44,9 +44,9 @@
                 {{ __('¿Ya tienes una cuenta?') }}
             </a>
 
-            <x-orange-button class="ml-4">
-                {{ __('Registrar') }}
-            </x-orange-button>
+            <x-primary-button class="ml-4">
+                {{ __('Crear cuenta') }}
+            </x-primary-button>
         </div>
     </form>
 </x-guest-layout>

@@ -39,9 +39,9 @@
                 </a>
             @endif
 
-            <x-orange-button class="ml-3">
+            <x-primary-button class="ml-3">
                 {{ __('Entrar') }}
-            </x-orange-button>
+            </x-primary-button>
         </div>
     </form>
 </x-guest-layout>
