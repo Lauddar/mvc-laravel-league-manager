@@ -9,7 +9,7 @@ class ClubController extends Controller
 {
     public function index()
     {
-        $clubs = Club::orderBy('id', 'desc')->paginate();
+        $clubs = Club::orderBy('id', 'desc')->paginate(15);
 
         return view('clubs.index', compact('clubs'));
     }
@@ -22,8 +22,8 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'location' => 'required'
+            'name' => 'required|max:50',
+            'location' => 'required|max:50'
         ]);
 
         $club = Club::create($request->all());

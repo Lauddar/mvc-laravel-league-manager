@@ -11,7 +11,7 @@ class TeamController extends Controller
 {
     public function index(League $league)
     {
-        $teams = Team::orderBy('id', 'desc')->paginate();
+        $teams = Team::orderBy('id', 'desc')->paginate(10);
 
         return view('teams.index', compact('teams', 'league'));
     }
@@ -56,6 +56,7 @@ class TeamController extends Controller
 
     public function destroy(Team $team){
         $club = $team->club;
+        
         $team->delete();
 
         return redirect()->route('clubs.show', $club);

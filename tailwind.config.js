@@ -24,6 +24,7 @@ module.exports = {
             fontFamily: {
                 rubik: ['Rubik', ...defaultTheme.fontFamily.sans],
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                pacifico: ['Pacifico'],
             }
         },
     },

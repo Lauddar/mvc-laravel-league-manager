@@ -32,8 +32,6 @@ class FootballMatchController extends Controller
             'local_team' => $request->input('local_team'),
             'visiting_team' => $request->input('visiting_team'),
             'start_date' => $request->input('start_date'),
-            'local_goals' => 0,
-            'visiting_goals' => 0,
             'location' => Team::find(1)->where('id', $request->input('local_team'))->first()->club->location
         ]);
 
@@ -54,8 +52,8 @@ class FootballMatchController extends Controller
     {
         $request->validate([
             'start_date' => 'required',
-            'local_goals' => 'gte:0',
-            'visiting_goals' => 'gte:0',
+            'local_goals' => 'nullable|gte:0',
+            'visiting_goals' => 'nullable|gte:0',
         ]);
 
         $footballmatch->update($request->all());
@@ -71,6 +69,8 @@ class FootballMatchController extends Controller
 
         $footballmatch->delete();
 
+        $footballmatch->league->updateClassification();
+
         return redirect()->route('leagues.footballmatches.index', $league);
     }
 
@@ -83,7 +83,7 @@ class FootballMatchController extends Controller
         foreach ($pairs as $pair) {
             $dates = array_rand($weekendDays, 2);
             $this->createFootballMatch($league, $pair[0], $pair[1], $weekendDays[$dates[0]]);
-            $this->createFootballMatch($league, $pair[1], $pair[0], $weekendDays[$dates[0]]);
+            $this->createFootballMatch($league, $pair[1], $pair[0], $weekendDays[$dates[1]]);
         }
 
         return redirect()->route('leagues.footballmatches.index', $league);
@@ -107,7 +107,6 @@ class FootballMatchController extends Controller
 
     function getPairs($teams)
     {
-
         $pairs = array();
 
         foreach ($teams as $key => $team) {

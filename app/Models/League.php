@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class League extends Model
@@ -54,35 +55,47 @@ class League extends Model
     function incTies($team)
     {
         $teamLeague = $team->leagues()->where('league_id', $this->id)->first();
-        $ties = $teamLeague->pivot->ties + 1;
-        $teamLeague->pivot->update(['ties' => $ties]);
+        if (isset($team)) {
+            $ties = $teamLeague->pivot->ties + 1;
+            $teamLeague->pivot->update(['ties' => $ties]);
+        }
     }
 
     function incVictories($team)
     {
+
         $teamLeague = $team->leagues()->where('league_id', $this->id)->first();
-        $victories = $teamLeague->pivot->victories + 1;
-        $teamLeague->pivot->update(['victories' => $victories]);
+        if (isset($teamLeague)) {
+            $victories = $teamLeague->pivot->victories + 1;
+            $teamLeague->pivot->update(['victories' => $victories]);
+        }
     }
 
     function incDefeats($team)
     {
+
         $teamLeague = $team->leagues()->where('league_id', $this->id)->first();
-        $defeats = $teamLeague->pivot->defeats + 1;
-        $teamLeague->pivot->update(['defeats' => $defeats]);
+        if (isset($teamLeague)) {
+            $defeats = $teamLeague->pivot->defeats + 1;
+            $teamLeague->pivot->update(['defeats' => $defeats]);
+        }
     }
 
     function addGoals($footballmatch)
     {
         $teamLeague = $footballmatch->local->leagues()->where('league_id', $this->id)->first();
-        $scored_goals = $teamLeague->pivot->scored_goals + $footballmatch->local_goals;
-        $conceded_goals = $teamLeague->pivot->conceded_goals + $footballmatch->visiting_goals;
-        $teamLeague->pivot->update(['scored_goals' => $scored_goals, 'conceded_goals' => $conceded_goals]);
+        if (isset($teamLeague)) {
+            $scored_goals = $teamLeague->pivot->scored_goals + $footballmatch->local_goals;
+            $conceded_goals = $teamLeague->pivot->conceded_goals + $footballmatch->visiting_goals;
+            $teamLeague->pivot->update(['scored_goals' => $scored_goals, 'conceded_goals' => $conceded_goals]);
+        }
 
         $teamLeague = $footballmatch->visiting->leagues()->where('league_id', $this->id)->first();
-        $scored_goals = $teamLeague->pivot->scored_goals + $footballmatch->visiting_goals;
-        $conceded_goals = $teamLeague->pivot->conceded_goals + $footballmatch->local_goals;
-        $teamLeague->pivot->update(['scored_goals' => $scored_goals, 'conceded_goals' => $conceded_goals]);
+        if (isset($teamLeague)) {
+            $scored_goals = $teamLeague->pivot->scored_goals + $footballmatch->visiting_goals;
+            $conceded_goals = $teamLeague->pivot->conceded_goals + $footballmatch->local_goals;
+            $teamLeague->pivot->update(['scored_goals' => $scored_goals, 'conceded_goals' => $conceded_goals]);
+        }
     }
 
     function updatePunctuation()
@@ -97,12 +110,10 @@ class League extends Model
     function updatePositions()
     {
         $teams = $this->getOrderByPunctuation();
-        $i = 0;
+        $i = 1;
         foreach ($teams as $team) {
+            $team->pivot->update(['position' => $i]);
             $i++;
-            $this->teams()->updateExistingPivot($team, [
-                'position' => $i
-            ]);
         }
     }
 
@@ -113,7 +124,8 @@ class League extends Model
 
     function getOrderByPunctuation()
     {
-        $orderByPunctuation = $this->teams()->orderByPivot('punctuation', 'desc')->get();
+        $orderByPunctuation = $this->teams()->orderByPivot('punctuation', 'desc')->orderByPivot('scored_goals', 'desc')->orderByPivot('conceded_goals', 'asc')->get();
+       
         return $orderByPunctuation;
     }
 
