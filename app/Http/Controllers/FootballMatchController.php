@@ -32,7 +32,7 @@ class FootballMatchController extends Controller
             'local_team' => $request->input('local_team'),
             'visiting_team' => $request->input('visiting_team'),
             'start_date' => $request->input('start_date'),
-            'location' => Team::find(1)->where('id', $request->input('local_team'))->first()->club->location
+            'location' => Team::find($request->input('local_team'))->club->location
         ]);
 
         return redirect()->route('leagues.footballmatches.index', $league);
