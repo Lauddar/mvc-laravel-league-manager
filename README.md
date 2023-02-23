@@ -27,3 +27,9 @@ MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS="leaguemanager@leaguemanager.com"
 MAIL_FROM_NAME="${League Manager}"
 ```
+
+## Migraciones y seed de datos
+Para realizar las migraciones del proyecto y generar datos ficticios, se debe ejecutar el comando:
+``` shell
+php artisan migrate --seed
+```
