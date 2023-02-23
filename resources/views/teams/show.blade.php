@@ -20,7 +20,7 @@
         @auth<a href="{{route('teams.edit', $team->id)}}">
             @else <a href="{{route('register')}}">
                 @endauth <x-teal-button>
-                    {{'Editar club'}}
+                    {{'Editar equipo'}}
                 </x-teal-button></a>
         </a>
     </div>
