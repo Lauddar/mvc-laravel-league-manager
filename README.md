@@ -15,7 +15,7 @@ Para el funcionamiento del framework Livewire en localhost es necesario añadir 
 APP_URL="/{directorio del proyecto}"
 ```
 
-En este mismo archivo, se deben configurar los parámetros para el envío de emails. Para ello, es necesario disponer de un servidor de prubas como, por ejemeplo mailtrap.io. Los parámetros de configuración de este servidor deben añadirse en el archivo .env es:
+En este mismo archivo, se deben configurar los parámetros para el envío de emails. Para ello, es necesario disponer de un servidor de pruebas como, por ejemeplo mailtrap.io. Los parámetros de configuración de este servidor deben añadirse en el archivo .env es:
 
 ``` shell
 MAIL_MAILER= *********
