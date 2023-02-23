@@ -11,7 +11,7 @@ class LeagueController extends Controller
 {
     public function index()
     {
-        $leagues = League::orderBy('id', 'desc')->paginate();
+        $leagues = League::orderBy('id', 'desc')->paginate(12);
 
         return view('leagues.index', compact('leagues'));
     }
@@ -24,19 +24,20 @@ class LeagueController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:50',
             'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'end_date' => 'required|date|after_or_equal:start_date'
         ]);
 
         $league = League::create($request->all());
-        $league->update(['state' => 'TO START']);
 
         return redirect()->route('leagues.show', $league);
     }
 
     public function show(League $league)
     {
+        $league->updateClassification();
+
         return view('leagues.show', compact('league'));
     }
 
@@ -50,7 +51,7 @@ class LeagueController extends Controller
         $request->validate([
             'name' => 'required|max:50',
             'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'end_date' => 'required|date|after_or_equal:start_date'
         ]);
 
         $league->update($request->all());
@@ -71,7 +72,7 @@ class LeagueController extends Controller
 
         $text = trim($request->get('search'));
         if (!empty($text)) {
-            $notAddedTeams = $notAddedTeams->toQuery()->where('name', 'LIKE', '%' . $text . '%')->get();
+            $notAddedTeams = $notAddedTeams->toQuery()->join('clubs', 'clubs.id' , '=', 'club_id')->where('teams.name', 'LIKE', '%' . $text . '%')->orWhere('clubs.name', 'LIKE', '%' . $text . '%')->get(['teams.*']);
         }
 
         return view('leagues.addTeams', compact('notAddedTeams', 'league', 'text'));
@@ -82,7 +83,7 @@ class LeagueController extends Controller
 
         $teams = Team::whereDoesntHave('leagues', function (Builder $query) use ($league) {
             $query->where('league_id', $league->id);
-        })->orderBy('id', 'desc')->paginate();
+        })->orderBy('id', 'desc')->get();
 
         return $teams;
     }
@@ -90,7 +91,7 @@ class LeagueController extends Controller
     public function addTeams(Request $request, League $league)
     {
 
-        foreach ($request->teamsList as $key => $team) {
+        foreach ($request->teamsList as $team) {
             $league->teams()->attach($team, [
                 'punctuation' => 0,
                 'position' => 0,
@@ -107,17 +108,19 @@ class LeagueController extends Controller
 
     public function removeTeams(Request $request, League $league)
     {
-        foreach ($request->teamsList as $key => $team) {
+        foreach ($request->teamsList as $team) {
             $league->teams()->detach($team);
         }
+
+        $league->updateClassification();
+
         return redirect()->route('leagues.listTeams', $league);
     }
 
     function classification(League $league)
     {
-        $teams = $league->getOrderByPosition();
+        $league->updateClassification();
 
-        return view('leagues.classification', compact('teams', 'league'));
+        return view('leagues.classification', compact('league'));
     }
-
 }

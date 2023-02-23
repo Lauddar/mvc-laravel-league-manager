@@ -20,7 +20,7 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            'club_id'=>$this->faker->randomElement([1,2,3,4,5,6,7,8]),
+            'club_id'=>$this->faker->randomElement([1,2,3,4,5]),
             'name' => $this->faker->sentence(3,false),
             'category' => $this->faker->randomElement(['Juvenil', 'Infantil', 'Alevín'])
         ];

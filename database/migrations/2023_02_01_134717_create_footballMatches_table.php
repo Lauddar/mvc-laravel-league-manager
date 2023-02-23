@@ -22,7 +22,6 @@ return new class extends Migration
             $table->unsignedInteger('local_goals')->nullable();
             $table->unsignedInteger('visiting_goals')->nullable();
             $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
             $table->string('location', 45)->nullable();
         });
     }

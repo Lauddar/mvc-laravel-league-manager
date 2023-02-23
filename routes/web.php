@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\FootballMatchController;
 use App\Http\Controllers\ClubController;
@@ -19,6 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+})->name('home');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::resource('leagues', LeagueController::class);
@@ -38,3 +49,6 @@ Route::post('league/{league}/remove-teams', [LeagueController::class, 'removeTea
 Route::get('league/{league}/classification', [LeagueController::class, 'classification'])->name('leagues.classification');
 
 Route::get('league/{league}/generateFootballMatches', [FootballMatchController::class, 'generateFootballMatches'])->name('footballMatches.generate');
+
+
+require __DIR__.'/auth.php';

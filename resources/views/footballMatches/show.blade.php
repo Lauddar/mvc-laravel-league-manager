@@ -1,6 +1,8 @@
-@extends('layouts.plantilla')
+@extends('layouts.content')
 
 @section('title',$team->name)
+
+@section('primary-text','PARTIDOS')
 
 @section('content')
 <h1>Club {{$team->name}}</h1>

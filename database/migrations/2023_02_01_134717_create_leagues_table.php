@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->enum('state', ['TO START', 'IN PROGRESS', 'FINISHED'])->nullable();
         });
     }
 
